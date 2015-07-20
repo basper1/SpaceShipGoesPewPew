@@ -22,7 +22,6 @@ public class GameThread extends Thread{
     }
 
 
-    @Override
     @SuppressLint("WrongCall")
     public void run() {
         Canvas canvas;

@@ -8,11 +8,11 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends Activity {
-
+    GameView p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new GameView(this));
+        setContentView(p = new GameView(this));
     }
 
     @Override
@@ -37,10 +37,6 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onPause(){
-        super.onPause();
-
-    }
 
 
 

@@ -39,11 +39,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         thread.setRunning(true);
         thread.start();
     }
+
+
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -134,18 +137,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.GREEN);
-        if(fingers.size() > 0)
-            try {
-                for (Integer i : fingers.keySet()) {
-                   if (fingers.get(i).getSize() > 0)
-                        fingers.get(i).draw(canvas);
+        try {
+            canvas.drawColor(Color.GREEN);
+            if (fingers.size() > 0)
+                try {
+                    for (Integer i : fingers.keySet()) {
+                        if (fingers.get(i).getSize() > 0)
+                            fingers.get(i).draw(canvas);
+                    }
+                } catch (Exception e) {
+                    System.out.println("  asdfasdfa  " + e);
                 }
-            }catch(Exception e){
-               System.out.println("  asdfasdfa  " + e);
+            //System.out.println(" ");
+            spaceship.draw(canvas);
+        }catch(Exception p){
+                //this.pause();
             }
-        //System.out.println(" ");
-        spaceship.draw(canvas);
 
     }
 
