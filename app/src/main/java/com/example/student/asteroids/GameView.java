@@ -66,51 +66,64 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        //System.out.println(event);
         int index = event.getActionIndex();
         int id = event.getPointerId(event.getActionIndex());
         int action = MotionEventCompat.getActionMasked(event);
         //if(action != MotionEvent.ACTION_MOVE)
         //System.out.println(actionToString(action) + "  " + event.getActionIndex() + "  " + event.getPointerId(event.getActionIndex()) + "  " + event.getX(index) + "  " + event.getY(index));
         //System.out.println(event.getAction());
-        switch(action){
-            case MotionEvent.ACTION_DOWN:
-                MoveFinger p = new MoveFinger(event.getX(index),event.getY(index),id,this);
-                fingers.put(id,p);
-                p.setSpaceship(spaceship);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int count = event.getPointerCount();
-                for(int i = 0;i < count;i++){
-                    if(fingers.get(event.getPointerId(i)) != null)
-                        fingers.get(event.getPointerId(i)).move(event.getX(i), event.getY(i));
-                }
+        //switch(action){
+        //case MotionEvent.ACTION_DOWN:
+        if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
+            //System.out.println(fingers.size());
+            if(fingers.get(0) == null) {
 
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                //System.out.println(" pointer down" + id);
-                Finger k= new Finger(event.getX(index),event.getY(index),id,this);
-                fingers.put(id, k);
-                break;
-            case MotionEvent.ACTION_UP:
+                MoveFinger p = new MoveFinger(event.getX(index), event.getY(index), id, this,spaceship);
                 fingers.remove(id);
-                spaceship.stopShip();
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                fingers.get(id).remove();
-                break;
-            case MotionEvent.ACTION_OUTSIDE:
-                fingers.get(id).remove();
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                ArrayList<Integer> w = new ArrayList<>();
-                for(Integer i: fingers.keySet()){
-                    w.add(i);
-                }
-                while(!w.isEmpty()){
-                    fingers.get(w.get(0)).remove();
-                    w.remove(0);
-                }
-                break;
+                fingers.put(0, p);
+                p.setSpaceship(spaceship);
+                System.out.println(fingers.size());
+                //System.out.println("asdfasdfasdgadsfgafgadfgagadfgasdfgadfg");
+            }else if(fingers.get(1) == null){
+                //case MotionEvent.ACTION_POINTER_DOWN:
+                //System.out.println(" pointer down" + id);
+                DirFinger k = new DirFinger(event.getX(index), event.getY(index), id, this);
+                fingers.put(1, k);
+                k.setSpaceship(spaceship);
+            }else{
+                Finger k = new Finger(event.getX(index), event.getY(index), id, this);
+                fingers.put(id, k);
+            }
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            //break;
+            //case MotionEvent.ACTION_MOVE:
+            int count = event.getPointerCount();
+            for (int i = 0; i < count; i++) {
+                if (fingers.get(event.getPointerId(i)) != null)
+                    fingers.get(event.getPointerId(i)).move(event.getX(i), event.getY(i));
+            }
+        } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+            //System.out.println(fingers.size() + " sdkjjfhaslkjghadfjklha");
+            //break;
+
+            //break;
+            //case MotionEvent.ACTION_UP:
+            fingers.remove(id);
+            spaceship.stopShip();
+
+            //break;
+            //case MotionEvent.ACTION_POINTER_UP:
+            //break;
+
+        } else if (action == MotionEvent.ACTION_OUTSIDE){
+            //case MotionEvent.ACTION_OUTSIDE:
+            fingers.get(id).remove();
+        }  else if(action == MotionEvent.ACTION_CANCEL) {
+            //break;
+            //case MotionEvent.ACTION_CANCEL:
+            fingers.clear();
+            //break;
         }
 
 
@@ -137,17 +150,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         try {
             canvas.drawColor(Color.GREEN);
             if (fingers.size() > 0)
-                try {
+
                     for (Integer i : fingers.keySet()) {
+                        System.out.println("draw");
                         if (fingers.get(i).getSize() > 0)
                             fingers.get(i).draw(canvas);
                     }
-                } catch (Exception e) {
-                    System.out.println("  asdfasdfa  " + e);
-                }
+
             //System.out.println(" ");
             spaceship.draw(canvas);
         }catch(Exception p){

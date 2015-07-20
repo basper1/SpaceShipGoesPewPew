@@ -21,15 +21,15 @@ public class Finger {
     public Finger(int id,GameView parent){
         this.id = id;
         this.parent = parent;
-        color = new Paint();
         color.setColor(Color.BLACK);
     }
     public Finger(float x,float y, int id,GameView parent){
-        //System.out.println(x + " " + y);
+        System.out.println("finger created");
         this.x.add(x);
         this.y.add(y);
         this.id = id;
         this.parent = parent;
+        color.setColor(Color.BLACK);
     }
 
     public void move(float x,float y){
@@ -42,13 +42,16 @@ public class Finger {
     }
 
     public int getSize(){
+        System.out.println(x.size() + " sdafjag");
         return x.size();
     }
 
     public void draw(Canvas canvas){
+        System.out.println(x.get(0) + " - " + y.get(0));
         if(x.size() > 0)
             try {
-                canvas.drawCircle(x.get(x.size() - 1), y.get(x.size() - 1), 10, color);
+
+                canvas.drawCircle(x.get(0), y.get(0), 100, color);
             }catch(IndexOutOfBoundsException e){
                 System.out.println("ERROR ERROR ERROR" + e);
             }

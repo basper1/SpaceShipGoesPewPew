@@ -13,29 +13,53 @@ public class Bullet {
     private int xVel;
     private int yVel;
     boolean isUp;
-    private GameView parent;
+    int width;
+    int height;
     Paint color = new Paint();
-    private long lastFire = 0;
+    private long lastDraw = System.currentTimeMillis();
+    Spaceship parent;
+    int dir;
 
-    public Bullet(int x,int y,int yVel, GameView parent){
-        this.x = x;
-        this.y = y;
-        yVel = - 10;
-        xVel = 0;
-        this.parent = parent;
+    public Bullet(Spaceship spaceship,int w,int h){
+
+        create(spaceship);
+        dir = spaceship.getDir();
+        width = w;
+        height = h;
+        //System.out.println("bullet created");
     }
 
-    public void paste(Spaceship spaceship){
-        int dir = spaceship.getDir();
-        if(dir % 2 == 0){
+    public void move(){
+        long distance = System.currentTimeMillis() - lastDraw;
 
-        }else{
-
+        //System.out.println(distance);
+        //System.out.println(x + " " + y);
+        lastDraw =System.currentTimeMillis();
+        switch (dir){
+            case(0): y -= distance; break;
+            case(1): x += distance; break;
+            case(2): y += distance; break;
+            case(3): x -= distance; break;
         }
     }
 
+    public boolean out(){
+        if(x < 0 || y < 0 || x > width || y > height){
+            //System.out.println("bullet deleted" + x + " " +  y + " " + height + " "+ width);
+            return true;
+        }
+        return false;
+    }
+
+    public void create(Spaceship spaceship){
+        x = spaceship.getX() + spaceship.getBitmap().getHeight() / 2;
+        y = spaceship.getY() + spaceship.getBitmap().getHeight() / 2;
+        return;
+    }
+
     public void draw(Canvas canvas){
-        canvas.drawRect(x,y,x+2,y+6,color);
+        canvas.drawCircle(x, y, 10, color);
+        //System.out.println("bullet drawn");
     }
 
 

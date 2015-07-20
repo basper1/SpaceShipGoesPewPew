@@ -34,14 +34,14 @@ public class DirFinger extends Finger{
     }
 
     public void moveShip(){
-        if(Math.abs(x.get(x.size() - 1)) > Math.abs(y.get(y.size() - 1))){
-            if(x.get(x.size() - 1) > 0){
+        if(Math.abs(x.get(x.size() - 1) - x.get(0)) > Math.abs(y.get(y.size() - 1) - y.get(0))){
+            if(Math.abs(x.get(x.size() - 1) - x.get(0)) > 0){
                 spaceship.setDir(1);
             }else{
                 spaceship.setDir(3);
             }
         }else{
-            if(y.get(y.size() - 1) > 0){
+            if(Math.abs(y.get(y.size() - 1)- y.get(0)) > 0){
                 spaceship.setDir(2);
             }else{
                 spaceship.setDir(0);

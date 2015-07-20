@@ -13,12 +13,18 @@ public class MoveFinger extends Finger {
     private GameView parent;
     private ArrayList<Float> x = new ArrayList<>();
     private ArrayList<Float> y = new ArrayList<>();
+    private float startX;
+    private float startY;
     private Spaceship spaceship;
-    private Paint color;
+    private Paint color = new Paint();
 
-    public MoveFinger(float x,float y, int id,GameView parent){
-        super(x,y,id,parent);
-        color = new Paint();
+    public MoveFinger(float x,float y, int id,GameView parent,Spaceship  ship){
+        super(id,parent);
+        spaceship = ship;
+        this.x.add(x);
+        this.y.add(y);
+        startX = x;
+        startY = y;
     }
 
     public void setSpaceship(Spaceship spaceship){
@@ -43,17 +49,9 @@ public class MoveFinger extends Finger {
     public void move(float x,float y){
         this.x.add(x);
         this.y.add(y);
+        //System.out.println(x + " " + y);
         moveShip();
     }
 
-    public void draw(Canvas canvas){
-        if(x.size() > 0)
-            //try {
-                canvas.drawCircle(x.get(0), y.get(0), 100, color);
-            //}catch(Exception e){
-               // System.out.println("ERROR ERROR ERROR1234" + e);
-            //}
-        else
-            remove();
-    }
+
 }
