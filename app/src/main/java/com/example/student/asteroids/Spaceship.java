@@ -75,4 +75,8 @@ public class Spaceship {
     public void setDir(int dir) {
         this.dir = dir;
     }
+
+    public int getDir() {
+        return dir;
+    }
 }

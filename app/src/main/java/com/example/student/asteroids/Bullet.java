@@ -12,8 +12,10 @@ public class Bullet {
     private int y;
     private int xVel;
     private int yVel;
+    boolean isUp;
     private GameView parent;
     Paint color = new Paint();
+    private long lastFire = 0;
 
     public Bullet(int x,int y,int yVel, GameView parent){
         this.x = x;
@@ -23,8 +25,17 @@ public class Bullet {
         this.parent = parent;
     }
 
+    public void paste(Spaceship spaceship){
+        int dir = spaceship.getDir();
+        if(dir % 2 == 0){
+
+        }else{
+
+        }
+    }
+
     public void draw(Canvas canvas){
-        canvas.drawRect(x-1,x-5,x+1,x+5,color);
+        canvas.drawRect(x,y,x+2,y+6,color);
     }
 
 
