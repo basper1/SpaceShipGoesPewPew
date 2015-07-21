@@ -11,18 +11,16 @@ import java.util.ArrayList;
  */
 public class MoveFinger extends Finger {
     private GameView parent;
-    private ArrayList<Float> x = new ArrayList<>();
-    private ArrayList<Float> y = new ArrayList<>();
     private float startX;
     private float startY;
+    private float x;
+    private float y;
     private Spaceship spaceship;
     private Paint color = new Paint();
 
     public MoveFinger(float x,float y, int id,GameView parent,Spaceship  ship){
-        super(id,parent);
+        super(id, parent);
         spaceship = ship;
-        this.x.add(x);
-        this.y.add(y);
         startX = x;
         startY = y;
     }
@@ -35,8 +33,8 @@ public class MoveFinger extends Finger {
 
     public void moveShip(){
 
-        float xVel = Math.min(100,x.get(x.size() - 1) - x.get(0));
-        float yVel = Math.min(100, y.get(y.size() - 1) - y.get(0));
+        float xVel = Math.min(100,x - startX);
+        float yVel = Math.min(100,y - startY);
         if(xVel < -100) xVel = -100;
         if(yVel < -100) yVel = -100;
         spaceship.setYVelocity((int) yVel);
@@ -47,10 +45,14 @@ public class MoveFinger extends Finger {
 
 
     public void move(float x,float y){
-        this.x.add(x);
-        this.y.add(y);
+        this.x = x;
+        this.y = y;
         //System.out.println(x + " " + y);
         moveShip();
+    }
+
+    public void draw(Canvas canvas){
+        canvas.drawCircle(startX, startY, 100, color);
     }
 
 

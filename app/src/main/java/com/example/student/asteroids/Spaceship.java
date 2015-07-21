@@ -19,9 +19,10 @@ public class Spaceship {
     private long lastDraw = System.currentTimeMillis();
     private long lastShoot = System.currentTimeMillis();
     private GameView parent;
-    private int dir = 2;
+    private int dir = 3;
     private HashSet<Bullet> bullets;
-    public final float FIREDELAY = 500;
+    public final float FIREDELAY = 100;
+    public final int MAXSPEED = 50;
 
     public Spaceship(Bitmap bitmap, int x,int y, GameView parent){
         bullets = new HashSet<>();
@@ -66,7 +67,8 @@ public class Spaceship {
         long movement = System.currentTimeMillis() - lastDraw ;
         lastDraw =System.currentTimeMillis();
         canvas.drawBitmap(DirFinger.RotateBitmap(bitmap, dir * 90), x, y, null);
-        bullets(canvas);
+        if (parent.fingers.size() > 1)
+            bullets(canvas);
         x = Math.max(x + xVelocity * (int) movement / 50, 0);
         x = Math.min(x, parent.getWidth() - bitmap.getWidth());
         y = Math.max(y + yVelocity * (int) movement / 50, 0);
@@ -77,14 +79,14 @@ public class Spaceship {
 
     public void setXVelocity(int xVelocity) {
         //this.xVelocity = Math.max(0 - 100,xVelocity);
-        this.xVelocity = Math.min( 100,xVelocity);
-        if(this.xVelocity < -100) this.xVelocity = -100;
+        this.xVelocity = Math.min( MAXSPEED,xVelocity);
+        if(this.xVelocity < -MAXSPEED) this.xVelocity = -MAXSPEED;
     }
     
     public void setYVelocity(int yVelocity) {
         //this.yVelocity = Math.max(0 - 100,yVelocity);
-        this.yVelocity = Math.min( 100,yVelocity);
-        if(this.yVelocity < -100) this.yVelocity = -100;
+        this.yVelocity = Math.min( MAXSPEED,yVelocity);
+        if(this.yVelocity < -MAXSPEED) this.yVelocity = -MAXSPEED;
     }
     
     public int getX() {

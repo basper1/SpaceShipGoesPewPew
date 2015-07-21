@@ -2,6 +2,7 @@ package com.example.student.asteroids;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
@@ -12,14 +13,22 @@ import java.util.ArrayList;
  */
 public class DirFinger extends Finger{
     private GameView parent;
-    private ArrayList<Float> x = new ArrayList<>();
-    private ArrayList<Float> y = new ArrayList<>();
+    private float startX;
+    private float startY;
+    private float x;
+    private float y;
     private Spaceship spaceship;
     private Paint color;
+    private int id;
 
     public DirFinger(float x,float y, int id,GameView parent){
-        super(x,y,id,parent);
-        color = new Paint();
+        startX = x;
+        startY = y;
+        this.id = id;
+        this.parent = parent;
+        //color.setColor(Color.BLACK);
+        //color = new Paint();
+        //System.out.println("dir");
     }
 
     public void setSpaceship(Spaceship spaceship){
@@ -34,38 +43,52 @@ public class DirFinger extends Finger{
     }
 
     public void moveShip(){
-        if(Math.abs(x.get(x.size() - 1) - x.get(0)) > Math.abs(y.get(y.size() - 1) - y.get(0))){
-            if(Math.abs(x.get(x.size() - 1) - x.get(0)) > 0){
+
+        float xDir = startX - x;
+        float yDir = startY - y;
+        System.out.println(xDir + " " + yDir);
+        if(Math.abs(xDir) > Math.abs(yDir)){
+            if(xDir < 0){
                 spaceship.setDir(1);
             }else{
                 spaceship.setDir(3);
             }
         }else{
-            if(Math.abs(y.get(y.size() - 1)- y.get(0)) > 0){
+            if(yDir < 0){
                 spaceship.setDir(2);
             }else{
                 spaceship.setDir(0);
             }
         }
+
+        // new try :)
+        /*if(Math.abs(x - startX) > Math.abs(startY - y)){
+            if(Math.abs(x - startX) > 0){
+                spaceship.setDir(1);
+            }else{
+                spaceship.setDir(3);
+            }
+        }else{
+            if(Math.abs(startY - y) > 0){
+                spaceship.setDir(2);
+            }else{
+                spaceship.setDir(0);
+            }
+        }*/
+        //System.out.println(startX + " " + startY + " | " + x + " " + y + " | " + spaceship.getDir());
     }
 
 
 
 
     public void move(float x,float y){
-        this.x.add(x);
-        this.y.add(y);
+        //System.out.println(x + " " + y);
+        this.x = x;
+        this.y = y;
         moveShip();
     }
 
     public void draw(Canvas canvas){
-        if(x.size() > 0)
-            //try {
-            canvas.drawCircle(x.get(0), y.get(0), 100, color);
-            //}catch(Exception e){
-            // System.out.println("ERROR ERROR ERROR1234" + e);
-            //}
-        else
-            remove();
+        canvas.drawCircle(startX, startY, 100, color);
     }
 }

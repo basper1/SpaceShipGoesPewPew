@@ -19,9 +19,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Spaceship spaceship;
     private boolean down = false;
     Paint color = new Paint();
-    HashSet<Bullet> bullets = new HashSet<>();
+    //HashSet<Bullet> bullets = new HashSet<>();
     //color.setColor(Color.RED);
-    HashMap<Integer,Finger> fingers = new HashMap<>();
+    public HashMap<Integer,Finger> fingers = new HashMap<>();
 
 
 
@@ -83,14 +83,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 fingers.remove(id);
                 fingers.put(0, p);
                 p.setSpaceship(spaceship);
-                System.out.println(fingers.size());
-                //System.out.println("asdfasdfasdgadsfgafgadfgagadfgasdfgadfg");
+                //System.out.println(fingers.size());
+                System.out.println("finger at 0");
             }else if(fingers.get(1) == null){
                 //case MotionEvent.ACTION_POINTER_DOWN:
                 //System.out.println(" pointer down" + id);
                 DirFinger k = new DirFinger(event.getX(index), event.getY(index), id, this);
                 fingers.put(1, k);
                 k.setSpaceship(spaceship);
+                System.out.println("finger at 1, 2");
             }else{
                 Finger k = new Finger(event.getX(index), event.getY(index), id, this);
                 fingers.put(id, k);
@@ -126,10 +127,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             //break;
         }
 
-
-
-
-
         return true;
     }
 
@@ -151,22 +148,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        try {
+       try {
             canvas.drawColor(Color.GREEN);
-            if (fingers.size() > 0)
-
+            /*if (!fingers.isEmpty())
                     for (Integer i : fingers.keySet()) {
-                        System.out.println("draw");
-                        if (fingers.get(i).getSize() > 0)
+
                             fingers.get(i).draw(canvas);
                     }
-
+*/
             //System.out.println(" ");
             spaceship.draw(canvas);
         }catch(Exception p){
-                //this.pause();
-            }
+                //System.out.println("asdfjskadf  " + p + "  " + fingers.size());
+                //thread.join();
 
+            }
     }
 
 

@@ -13,9 +13,11 @@ import java.util.*;
 public class Finger {
     private int id;
     private GameView parent;
+    private float startX;
+    private float startY;
+    private float x;
+    private float y;
     private Paint color = new Paint();
-    private ArrayList<Float> x = new ArrayList<>();
-    private ArrayList<Float> y = new ArrayList<>();
     public Finger(){}
 
     public Finger(int id,GameView parent){
@@ -24,39 +26,33 @@ public class Finger {
         color.setColor(Color.BLACK);
     }
     public Finger(float x,float y, int id,GameView parent){
-        System.out.println("finger created");
-        this.x.add(x);
-        this.y.add(y);
+        //System.out.println("finger created");
+        startX = x;
+        startY = y;
         this.id = id;
         this.parent = parent;
         color.setColor(Color.BLACK);
     }
 
     public void move(float x,float y){
-        this.x.add(x);
-        this.y.add(y);
+        this.x = x;
+        this.y = y;
     }
 
     public void remove(){
         parent.removeFinger(id);
     }
 
-    public int getSize(){
-        System.out.println(x.size() + " sdafjag");
-        return x.size();
-    }
 
     public void draw(Canvas canvas){
-        System.out.println(x.get(0) + " - " + y.get(0));
-        if(x.size() > 0)
+        System.out.println(startX + " - " + startY);
             try {
 
-                canvas.drawCircle(x.get(0), y.get(0), 100, color);
+                canvas.drawCircle(startX, startY, 100, color);
             }catch(IndexOutOfBoundsException e){
                 System.out.println("ERROR ERROR ERROR" + e);
             }
-        else
-            remove();
+
     }
 
 
