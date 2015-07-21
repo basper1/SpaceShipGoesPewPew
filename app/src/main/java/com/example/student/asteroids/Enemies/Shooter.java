@@ -4,7 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.example.student.asteroids.Bullet;
 import com.example.student.asteroids.GameView;
+import com.example.student.asteroids.Spaceship;
 
 /**
  * Created by student on 7/21/2015.
@@ -15,6 +17,7 @@ public class Shooter extends Enemy{
     public final int SIZE = 50;
     private int x;
     private int y;
+    private int hp;
     GameView parent;
     int value;
     public Shooter(GameView gameView){
@@ -23,6 +26,10 @@ public class Shooter extends Enemy{
 
 
 
+    public void moveTo(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
     public void draw(Canvas canvas){
         paint.setColor(Color.RED);
         canvas.drawCircle(x,y,SIZE,paint);

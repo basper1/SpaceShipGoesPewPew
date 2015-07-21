@@ -20,7 +20,7 @@ public class Spaceship {
     private long lastShoot = System.currentTimeMillis();
     private GameView parent;
     private int dir = 0;
-    private HashSet<Bullet> bullets;
+    public HashSet<Bullet> bullets;
     public final float FIREDELAY = 100;
     public final int MAXSPEED = 50;
 
@@ -57,7 +57,7 @@ public class Spaceship {
             lastShoot = System.currentTimeMillis();
             Bullet k = new Bullet(this,parent.getWidth(),parent.getHeight());
             bullets.add(k);
-            parent.score.addScore(1);
+
             //System.out.println("asdffhgfhf");
         }
     }

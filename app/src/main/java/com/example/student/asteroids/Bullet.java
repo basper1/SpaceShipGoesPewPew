@@ -45,7 +45,7 @@ public class Bullet {
 
     public boolean out(){
         if(x < 0 || y < 0 || x > width || y > height){
-            System.out.println("bullet deleted" + x + " " +  y + " " + height + " "+ width);
+            //System.out.println("bullet deleted" + x + " " +  y + " " + height + " "+ width);
             return true;
         }
         return false;
@@ -60,5 +60,9 @@ public class Bullet {
     public void draw(Canvas canvas){
         canvas.drawCircle(x, y, 10, color);
         //System.out.println("bullet drawn");
+    }
+
+    public int getX() {
+        return x;
     }
 }

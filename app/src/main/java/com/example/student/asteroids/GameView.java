@@ -12,11 +12,14 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.example.student.asteroids.Enemies.Enemy;
+import com.example.student.asteroids.Enemies.Shooter;
+
 import java.util.*;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
-    private GameThread thread;
-    private Spaceship spaceship;
+    public GameThread thread;
+    public Spaceship spaceship;
     private boolean down = false;
     Paint color = new Paint();
     public int height = this.getHeight();
@@ -25,6 +28,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     //HashSet<Bullet> bullets = new HashSet<>();
     //color.setColor(Color.RED);
     public HashMap<Integer,Finger> fingers = new HashMap<>();
+    public HashSet<Enemy> enemies = new HashSet<>();
 
 
 
@@ -36,7 +40,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
         spaceship = new Spaceship(BitmapFactory.decodeResource(getResources(),
                 R.drawable.spaceship),getHeight() / 2, getWidth() / 2,this);
+        Shooter p = new Shooter(this);
+        enemies.add(p);
+        p.moveTo(200, 200);
     }
+
+    public void removeEnemy(Enemy enemy){
+        enemies.remove(enemy);
+    }
+
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height){
 
@@ -87,14 +99,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 fingers.put(0, p);
                 p.setSpaceship(spaceship);
                 //System.out.println(fingers.size());
-                System.out.println("finger at 0");
+                //System.out.println("finger at 0");
             }else if(fingers.get(1) == null){
                 //case MotionEvent.ACTION_POINTER_DOWN:
                 //System.out.println(" pointer down" + id);
                 DirFinger k = new DirFinger(event.getX(index), event.getY(index), id, this);
                 fingers.put(1, k);
                 k.setSpaceship(spaceship);
-                System.out.println("finger at 1, 2");
+                //System.out.println("finger at 1, 2");
             }else{
                 Finger k = new Finger(event.getX(index), event.getY(index), id, this);
                 fingers.put(id, k);
@@ -153,8 +165,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
        try {
            canvas.drawColor(Color.GREEN);
+           for(Enemy k: enemies){
+               k.draw(canvas);
+                   for(Bullet i:spaceship.bullets){
+                       if(Math.abs(k.getX() - i.getX()) < 20){
+                           score.addScore(1);
+                           removeEnemy(k);
+                       }
+               }
+           }
            spaceship.draw(canvas);
            score.draw(canvas);
+
        }catch(Exception p){
            //System.out.println("asdfjskadf  " + p + "  " + fingers.size());
            //thread.join();
