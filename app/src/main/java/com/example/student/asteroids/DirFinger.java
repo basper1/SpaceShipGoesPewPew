@@ -46,7 +46,7 @@ public class DirFinger extends Finger{
 
         float xDir = startX - x;
         float yDir = startY - y;
-        System.out.println(xDir + " " + yDir);
+        //System.out.println(xDir + " " + yDir);
         if(Math.abs(xDir) > Math.abs(yDir)){
             if(xDir < 0){
                 spaceship.setDir(1);
@@ -91,4 +91,5 @@ public class DirFinger extends Finger{
     public void draw(Canvas canvas){
         canvas.drawCircle(startX, startY, 100, color);
     }
+
 }

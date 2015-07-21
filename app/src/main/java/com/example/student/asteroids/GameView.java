@@ -19,6 +19,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Spaceship spaceship;
     private boolean down = false;
     Paint color = new Paint();
+    public int height = this.getHeight();
+    public int width = this.getWidth();
+    public Score score = new Score(this);
     //HashSet<Bullet> bullets = new HashSet<>();
     //color.setColor(Color.RED);
     public HashMap<Integer,Finger> fingers = new HashMap<>();
@@ -149,24 +152,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     protected void onDraw(Canvas canvas) {
 
        try {
-            canvas.drawColor(Color.GREEN);
-            /*if (!fingers.isEmpty())
-                    for (Integer i : fingers.keySet()) {
+           canvas.drawColor(Color.GREEN);
+           spaceship.draw(canvas);
+           score.draw(canvas);
+       }catch(Exception p){
+           //System.out.println("asdfjskadf  " + p + "  " + fingers.size());
+           //thread.join();
 
-                            fingers.get(i).draw(canvas);
-                    }
-*/
-            //System.out.println(" ");
-            spaceship.draw(canvas);
-        }catch(Exception p){
-                //System.out.println("asdfjskadf  " + p + "  " + fingers.size());
-                //thread.join();
-
-            }
+       }
     }
-
-
-   /*public  Spaceship getSpaceship() {
-        return spaceship;
-    }*/
 }

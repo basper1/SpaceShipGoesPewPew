@@ -45,14 +45,7 @@ public class Finger {
 
 
     public void draw(Canvas canvas){
-        System.out.println(startX + " - " + startY);
-            try {
-
-                canvas.drawCircle(startX, startY, 100, color);
-            }catch(IndexOutOfBoundsException e){
-                System.out.println("ERROR ERROR ERROR" + e);
-            }
-
+        canvas.drawCircle(startX, startY, 100, color);
     }
 
 

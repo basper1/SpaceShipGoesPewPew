@@ -19,7 +19,7 @@ public class Spaceship {
     private long lastDraw = System.currentTimeMillis();
     private long lastShoot = System.currentTimeMillis();
     private GameView parent;
-    private int dir = 3;
+    private int dir = 0;
     private HashSet<Bullet> bullets;
     public final float FIREDELAY = 100;
     public final int MAXSPEED = 50;
@@ -53,10 +53,11 @@ public class Spaceship {
             p.draw(canvas);
             if(p.out()) bullets.remove(p);
         }
-        if(System.currentTimeMillis() - lastShoot > FIREDELAY){
+        if(parent.fingers.containsKey(1) && System.currentTimeMillis() - lastShoot > FIREDELAY){
             lastShoot = System.currentTimeMillis();
             Bullet k = new Bullet(this,parent.getWidth(),parent.getHeight());
             bullets.add(k);
+            parent.score.addScore(1);
             //System.out.println("asdffhgfhf");
         }
     }
@@ -67,8 +68,8 @@ public class Spaceship {
         long movement = System.currentTimeMillis() - lastDraw ;
         lastDraw =System.currentTimeMillis();
         canvas.drawBitmap(DirFinger.RotateBitmap(bitmap, dir * 90), x, y, null);
-        if (parent.fingers.size() > 1)
-            bullets(canvas);
+
+        bullets(canvas);
         x = Math.max(x + xVelocity * (int) movement / 50, 0);
         x = Math.min(x, parent.getWidth() - bitmap.getWidth());
         y = Math.max(y + yVelocity * (int) movement / 50, 0);
