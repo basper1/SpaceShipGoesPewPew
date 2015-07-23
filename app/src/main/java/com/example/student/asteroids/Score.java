@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.example.student.asteroids.Enemies.Enemy;
+
 /**
  * Created by student on 7/21/2015.
  */
@@ -24,7 +26,7 @@ public class Score {
 
     public void draw(Canvas canvas){
         //System.out.println("score: " + score);
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.BLACK);
         canvas.drawText("Score: " + score,0,20,paint);
     }
 }

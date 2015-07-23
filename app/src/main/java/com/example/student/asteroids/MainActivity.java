@@ -1,6 +1,8 @@
 package com.example.student.asteroids;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,6 +16,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(p = new GameView(this));
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        p.highscore = sharedPref.getInt("Saved Count", 0);
+        p.a = this;
     }
 
     @Override

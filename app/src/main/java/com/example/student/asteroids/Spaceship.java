@@ -21,8 +21,8 @@ public class Spaceship {
     private GameView parent;
     private int dir = 0;
     public HashSet<Bullet> bullets;
-    public final float FIREDELAY = 100;
-    public final int MAXSPEED = 50;
+    public final float FIREDELAY = 500;
+    public final int MAXSPEED = 25;
 
     public Spaceship(Bitmap bitmap, int x,int y, GameView parent){
         bullets = new HashSet<>();

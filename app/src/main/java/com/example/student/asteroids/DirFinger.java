@@ -11,17 +11,10 @@ import java.util.ArrayList;
 /**
  * Created by student on 7/20/2015.
  */
-public class DirFinger extends Finger{
-    private GameView parent;
-    private float startX;
-    private float startY;
-    private float x;
-    private float y;
+public class DirFinger extends Finger {
     private Spaceship spaceship;
-    private Paint color;
-    private int id;
 
-    public DirFinger(float x,float y, int id,GameView parent){
+    public DirFinger(float x, float y, int id, GameView parent) {
         startX = x;
         startY = y;
         this.id = id;
@@ -31,32 +24,31 @@ public class DirFinger extends Finger{
         //System.out.println("dir");
     }
 
-    public void setSpaceship(Spaceship spaceship){
+    public void setSpaceship(Spaceship spaceship) {
         this.spaceship = spaceship;
     }
 
-    public static Bitmap RotateBitmap(Bitmap source, float angle)
-    {
+    public static Bitmap RotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
-    public void moveShip(){
+    public void moveShip() {
 
         float xDir = startX - x;
         float yDir = startY - y;
         //System.out.println(xDir + " " + yDir);
-        if(Math.abs(xDir) > Math.abs(yDir)){
-            if(xDir < 0){
+        if (Math.abs(xDir) > Math.abs(yDir)) {
+            if (xDir < 0) {
                 spaceship.setDir(1);
-            }else{
+            } else {
                 spaceship.setDir(3);
             }
-        }else{
-            if(yDir < 0){
+        } else {
+            if (yDir < 0) {
                 spaceship.setDir(2);
-            }else{
+            } else {
                 spaceship.setDir(0);
             }
         }
@@ -79,17 +71,11 @@ public class DirFinger extends Finger{
     }
 
 
-
-
-    public void move(float x,float y){
+    public void move(float x, float y) {
         //System.out.println(x + " " + y);
         this.x = x;
         this.y = y;
         moveShip();
-    }
-
-    public void draw(Canvas canvas){
-        canvas.drawCircle(startX, startY, 100, color);
     }
 
 }

@@ -4,20 +4,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
-
 import java.util.*;
 
 /**
  * Created by student on 7/15/2015.
  */
 public class Finger {
-    private int id;
-    private GameView parent;
-    private float startX;
-    private float startY;
-    private float x;
-    private float y;
-    private Paint color = new Paint();
+    public int id;
+    public GameView parent;
+    public float startX;
+    public float startY;
+    public float x;
+    public float y;
+    public Paint color = new Paint();
     public Finger(){}
 
     public Finger(int id,GameView parent){
@@ -45,7 +44,15 @@ public class Finger {
 
 
     public void draw(Canvas canvas){
-        canvas.drawCircle(startX, startY, 100, color);
+        if(color != null) {
+            color.setColor(Color.BLACK);
+            color.setAlpha(25);
+            System.out.println(color.getAlpha());
+
+            canvas.drawCircle(startX, startY, 100, color);
+        }else{
+            color = new Paint();
+        }
     }
 
 

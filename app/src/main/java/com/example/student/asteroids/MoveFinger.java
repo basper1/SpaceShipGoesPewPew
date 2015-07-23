@@ -10,11 +10,6 @@ import java.util.ArrayList;
  * Created by student on 7/17/2015.
  */
 public class MoveFinger extends Finger {
-    private GameView parent;
-    private float startX;
-    private float startY;
-    private float x;
-    private float y;
     private Spaceship spaceship;
     private Paint color = new Paint();
 
@@ -51,9 +46,7 @@ public class MoveFinger extends Finger {
         moveShip();
     }
 
-    public void draw(Canvas canvas){
-        canvas.drawCircle(startX, startY, 100, color);
-    }
+
 
 
 }
