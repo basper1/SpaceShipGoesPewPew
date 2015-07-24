@@ -177,19 +177,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
-    public static String actionToString(int action) {
-        switch (action) {
-
-            case MotionEvent.ACTION_DOWN: return "Down";
-            case MotionEvent.ACTION_MOVE: return "Move";
-            case MotionEvent.ACTION_POINTER_DOWN: return "Pointer Down";
-            case MotionEvent.ACTION_UP: return "Up";
-            case MotionEvent.ACTION_POINTER_UP: return "Pointer Up";
-            case MotionEvent.ACTION_OUTSIDE: return "Outside";
-            case MotionEvent.ACTION_CANCEL: return "Cancel";
-        }
-        return "nothing";
-    }
 
 
     @Override
